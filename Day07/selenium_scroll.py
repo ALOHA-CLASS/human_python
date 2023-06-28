@@ -36,14 +36,28 @@ for item in soup:
     
     
 ###
-for i in range(1, 11):
+prev = 0
+now = 0
+# for i in range(1, 11):
+while True:
+    # 스크롤 맨 아래로 이동
     script = '''
                 document.body.scrollIntoView(false);
-            '''
+             '''
     driver.execute_script(script)
+    
     
     time.sleep(2)
     info_list = driver.find_elements(By.CSS_SELECTOR, '#pokedexlist .bx-txt h3')
+    
+    
+    # 이전 리스트 요소 개수와 현재 리스트 요소개수가 같으면 
+    # 더 이상 데이터가 없으므로 종료
+    now = len(info_list)
+    if now == prev:
+        break
+    prev = now
+    
     info_list = info_list[-count:]
     
     
@@ -66,8 +80,5 @@ print(no_list)
 print(name_list)
 
 time.sleep(10)
-
-
-
 
 
